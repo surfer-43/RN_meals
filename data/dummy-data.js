@@ -10,5 +10,5 @@ export const Categories = [
     new categoryModel('c7', 'Breakfast', '#9eecff'),
     new categoryModel('c8', 'Asian', '#b9ffb0'),
     new categoryModel('c9', 'French', '#ffc7ff'),
-    new categoryModel('c10', 'Summer', '#47fced'))
+    new categoryModel('c10', 'Summer', '#47fced')
 ];
