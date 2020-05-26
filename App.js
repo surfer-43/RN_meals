@@ -1,24 +1,21 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 
 /**
  * try to import a custom navigation component
  * just to see if it works
  */
 import MealsNavigator from './navigation/MealsNavigator';
+import { enableScreens } from 'react-native-screens';
+
+/**
+ * this feature doesn't change anything really, just makes it 
+ * faster and more performant
+ */
+enableScreens();
 
 export default function App() {
   return (
       <MealsNavigator />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
