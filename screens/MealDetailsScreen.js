@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 const MealDetailsScreen = (props) => {
+    console.log("Meals details screen - props: ", props);
     return (
         <View>
             <Text>Meal Details screen</Text>
