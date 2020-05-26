@@ -42,13 +42,32 @@ import MealDetailsScreen from '../screens/MealDetailsScreen';
 
 const Stack = createStackNavigator();
 
-const MealsNavigator = () => {
+const MealsNavigator = (props) => {
+  console.log('MealsNavigator - are there props: ', props);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="CategoriesScreen">
-        <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} />
-        <Stack.Screen name="CategoryMealsScreen" component={CategoryMealsScreen} />
-        <Stack.Screen name="MealDetailsScreen" component={MealDetailsScreen} />
+        <Stack.Screen 
+        name="CategoriesScreen" 
+        component={CategoriesScreen} 
+        options={{
+          title: 'Category Screen'
+        }}
+        />
+        <Stack.Screen 
+        name="CategoryMealsScreen" 
+        component={CategoryMealsScreen} 
+        options={{
+          title: 'Meal Screen'
+        }}
+        />
+        <Stack.Screen 
+        name="MealDetailsScreen" 
+        component={MealDetailsScreen} 
+        options={{
+          title: 'Details Screen'
+        }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
