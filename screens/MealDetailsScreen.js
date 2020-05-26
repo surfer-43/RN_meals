@@ -1,36 +1,65 @@
 import React from 'react';
 import {
-    Text,
-    View,
-    Button,
-    StyleSheet,
+  Text,
+  View,
+  Button,
+  StyleSheet,
 } from 'react-native';
+import { 
+  HeaderButtons, 
+  Item,
+  HiddenItem,
+  OverflowMenu,
+} from 'react-navigation-header-buttons'
+import CustomHeaderButton from '../components/HeaderButton';
 
 import { MEALS } from '../data/meals';
 
 const MealDetailsScreen = (props) => {
-    console.log("Meals details screen - props: ", props.route.params);
-    const { mealId } = props.route.params;
-    
-    const mealDetails = MEALS.filter( meal => meal.id === mealId );
-    console.log('this is the meal we want: ', mealDetails)
+  const { mealId } = props.route.params;
+  
+  const mealDetails = MEALS.filter( meal => meal.id === mealId );
 
-    // setting title of screen
-    console.log("this is the meal title: ", mealDetails.title);
-    props.navigation.setOptions({ title: mealDetails[0].title }); 
+  // setting title of screen
+  props.navigation.setOptions({ 
+    title: mealDetails[0].title,
+    headerRight: () => { 
+      return (
+        <HeaderButtons
+          HeaderButtonComponent={CustomHeaderButton}
+        >
+        <Item 
+          title='favourite' 
+          iconName='ios-star'
+          onPress={() => {
+              console.log('mark as favourite...');
+          }}/>
+          {/**
+            can add more than 1 icon if required
+           */}
+        {/* <Item 
+          title='superFavs' 
+          iconName='ios-star-outline'
+          onPress={() => {
+              console.log('mark as favourite...');
+          }}/> */}
+        </HeaderButtons>
+      )
+    }
+  }); 
 
-    return (
-        <View>
-            <Text>Meal Details screen</Text>
-            <Button 
-                title='go back to Categories'
-                onPress={() => {
-                    // props.navigation.navigate({name: 'CategoriesScreen'});
-                    props.navigation.popToTop();
-                }
-            } />
-        </View>
-    )
+  return (
+    <View>
+      <Text>Meal Details screen</Text>
+      <Button 
+        title='go back to Categories'
+        onPress={() => {
+          // props.navigation.navigate({name: 'CategoriesScreen'});
+          props.navigation.popToTop();
+        }
+      } />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({});

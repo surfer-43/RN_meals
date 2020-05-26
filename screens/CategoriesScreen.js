@@ -52,15 +52,11 @@ CategoriesScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   screen: {
-    borderWidth: 1,
-    borderColor: 'red',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   grid: {
-    borderWidth: 1,
-    borderColor: 'red',
     width: '100%'
   },
 });
