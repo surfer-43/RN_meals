@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
@@ -54,7 +55,31 @@ const MealsNavigator = (props) => {
 const TabsNavigator = (props) => {
   return (
     <NavigationContainer>
-      <Tabs.Navigator>
+      <Tabs.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            console.log('color value: ', color);
+            let iconName;
+
+            if (route.name === 'Meals') {
+              console.log("we are working with the meals tab");
+              iconName = focused
+                ? 'ios-information-circle'
+                : 'ios-information-circle-outline';
+            } else if (route.name === 'Favs') {
+              console.log("we are dealing with the favourites tab styles")
+              iconName = focused ? 'ios-star-outline' : 'ios-star';
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={23} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}
+      >
         <Tabs.Screen name='Meals' component={MealsNavigator} />
         <Tabs.Screen name="Favs" component={FavoritesScreen} />
       </Tabs.Navigator>
