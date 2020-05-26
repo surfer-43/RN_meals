@@ -5,7 +5,9 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet
-} from 'react-native'
+} from 'react-native';
+
+import CategoryGridTyle from '../components/CategoryGridTile';
 
 // getting fake data
 import { CATEGORIES } from '../data/dummy-data';
@@ -13,19 +15,18 @@ import { CATEGORIES } from '../data/dummy-data';
 const CategoriesScreen = (props) => {
 
   renderGridItem = (itemData) => {
+    const { item } = itemData
     return (
-      <TouchableOpacity onPress={() => {
+      <CategoryGridTyle 
+        data={item} 
+        onSelect={() => {
         props.navigation.navigate(
-          {name:'CategoryMealsScreen',
-          params: { catId: itemData.item.id }
+          {
+            name:'CategoryMealsScreen',
+            params: { catId: item.id }
           })
-      }}
-        style={styles.gridItem}
-      >
-        <View>
-          <Text>{itemData.item.title}</Text>
-        </View>
-      </TouchableOpacity>
+        }}
+      />
     )
   }
 
@@ -62,13 +63,6 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     width: '100%'
   },
-  gridItem:{
-    borderColor: "purple",
-    borderWidth:1,
-    flex: 1,
-    margin: 15,
-    height: 150
-  }
 });
 
 export default CategoriesScreen;
