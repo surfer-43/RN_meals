@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
     borderRadius: 10,
     overflow: 'hidden',
+    marginVertical: 10
   },
   listBtn: {
     flex: 1
