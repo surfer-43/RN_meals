@@ -8,7 +8,7 @@ import {
 const FavoritesScreen = () => {
     return (
         <View>
-            <Text></Text>
+            <Text>This is our favourites screen</Text>
         </View>
     )
 }
