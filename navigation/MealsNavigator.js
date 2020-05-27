@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { Ionicons } from '@expo/vector-icons';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
@@ -13,7 +14,7 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 import Colors from '../constants/colors';
 
 const Stack = createStackNavigator();
-const Tabs = createBottomTabNavigator();
+const Tabs = Platform.OS === "android"? createMaterialBottomTabNavigator() : createBottomTabNavigator();
 
 const MealsNavigator = (props) => {
   return (
@@ -56,6 +57,8 @@ const TabsNavigator = (props) => {
   return (
     <NavigationContainer>
       <Tabs.Navigator
+        shifting={true}
+        // barStyle={{ backgroundColor: Colors.androidTabColor }}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -78,8 +81,17 @@ const TabsNavigator = (props) => {
           activeTintColor: Colors.highlightColor,
           inactiveTintColor: 'gray',
         }}
+        activeColor={Colors.highlightColor}
+        inactiveColor= 'grey'
+
       >
-        <Tabs.Screen name='Meals' component={MealsNavigator} />
+        <Tabs.Screen 
+          name='Meals' 
+          component={MealsNavigator}
+          options={{
+            tabBarColor: Colors.secondaryColor
+          }}
+        />
         <Tabs.Screen 
           name="Favs" 
           component={FavoritesScreen} 
@@ -88,7 +100,8 @@ const TabsNavigator = (props) => {
            * screen options
            */
           options={{
-            tabBarLabel: 'FAVORITES!!'
+            tabBarLabel: 'FAVORITES!!',
+            tabBarColor: Colors.androidColor
           }}
         />
       </Tabs.Navigator>
