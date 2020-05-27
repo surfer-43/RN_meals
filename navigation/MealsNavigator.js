@@ -13,43 +13,72 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 
 import Colors from '../constants/colors';
 
-const Stack = createStackNavigator();
+const Meals = createStackNavigator();
+const Favs = createStackNavigator();
 const Tabs = Platform.OS === "android"? createMaterialBottomTabNavigator() : createBottomTabNavigator();
+
+const defaultStackNavOptions = {
+  headerStyle: {
+    backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : "white",
+  },
+  headerTintColor:  Platform.OS === 'android' ? '#fff' : Colors.primaryColor,
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
 
 const MealsNavigator = (props) => {
   return (
-    <Stack.Navigator 
+    <Meals.Navigator 
       initialRouteName="CategoriesScreen"
-      screenOptions={{headerStyle: {
-          backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : "white",
-        },
-        headerTintColor:  Platform.OS === 'android' ? '#fff' : Colors.primaryColor,
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },}}
+      screenOptions={ defaultStackNavOptions }
     >
-      <Stack.Screen 
-      name="CategoriesScreen" 
-      component={CategoriesScreen} 
-      options={{
-        title: 'Meal Categories',
-      }}
+      <Meals.Screen 
+        name="CategoriesScreen" 
+        component={CategoriesScreen} 
+        options={{
+          title: 'Meal Categories',
+        }}
       />
-      <Stack.Screen 
-      name="CategoryMealsScreen" 
-      component={CategoryMealsScreen} 
-      options={{
-        title: 'Meal Screen',
-      }}
+      <Meals.Screen 
+        name="CategoryMealsScreen" 
+        component={CategoryMealsScreen} 
+        options={{
+          title: 'Meal Screen',
+        }}
       />
-      <Stack.Screen 
-      name="MealDetailsScreen" 
-      component={MealDetailsScreen} 
-      options={{
-        title: 'Details Screen',
-      }}
+      <Meals.Screen 
+        name="MealDetailsScreen" 
+        component={MealDetailsScreen} 
+        options={{
+          title: 'Details Screen',
+        }}
       />
-    </Stack.Navigator>
+    </Meals.Navigator>
+  )
+}
+
+const FavsNavigator = (props) => {
+  return (
+    <Favs.Navigator
+      initialRouteName="CategoriesScreen"
+      screenOptions={ defaultStackNavOptions }
+    >
+      <Meals.Screen 
+        name="FavoritesScreen" 
+        component={FavoritesScreen} 
+        options={{
+          title: 'Favorite Meals Screen',
+        }}
+      />
+      <Meals.Screen 
+        name="MealDetailsScreen" 
+        component={MealDetailsScreen} 
+        options={{
+          title: 'Details Screen',
+        }}
+      />
+    </Favs.Navigator>
   )
 }
 
@@ -64,12 +93,10 @@ const TabsNavigator = (props) => {
             let iconName;
 
             if (route.name === 'Meals') {
-              console.log("we are working with the meals tab");
               iconName = focused
                 ? 'ios-restaurant'
                 : 'ios-restaurant';
             } else if (route.name === 'Favs') {
-              console.log("we are dealing with the favourites tab styles")
               iconName = focused ? 'ios-star' : 'ios-star-outline';
             }
 
@@ -94,7 +121,7 @@ const TabsNavigator = (props) => {
         />
         <Tabs.Screen 
           name="Favs" 
-          component={FavoritesScreen} 
+          component={FavsNavigator} 
           /**
            * use these options to over-ride the default settings in the tabbar
            * screen options
