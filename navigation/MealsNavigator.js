@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { Ionicons } from '@expo/vector-icons';
@@ -10,11 +11,14 @@ import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
 import MealDetailsScreen from '../screens/MealDetailsScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
+import FiltersScreen from '../screens/FiltersScreen';
 
 import Colors from '../constants/colors';
 
 const Meals = createStackNavigator();
 const Favs = createStackNavigator();
+const Filters = createStackNavigator();
+const Main = createDrawerNavigator();
 const Tabs = Platform.OS === "android"? createMaterialBottomTabNavigator() : createBottomTabNavigator();
 
 const defaultStackNavOptions = {
@@ -82,9 +86,22 @@ const FavsNavigator = (props) => {
   )
 }
 
+const FiltersNavigator = (porps) => {
+  return (
+    <Filters.Navigator 
+      initialRouteName="FiltersScreen"
+      screenOptions={ defaultStackNavOptions }
+    >
+      <Main.Screen 
+        name="Filter Meals"
+        component={FiltersScreen}
+      />
+    </Filters.Navigator>
+  )
+}
+
 const TabsNavigator = (props) => {
   return (
-    <NavigationContainer>
       <Tabs.Navigator
         shifting={true}
         // barStyle={{ backgroundColor: Colors.androidTabColor }}
@@ -132,8 +149,46 @@ const TabsNavigator = (props) => {
           }}
         />
       </Tabs.Navigator>
+  )
+}
+
+const MainNavigator = (props) => {
+  return(
+    <NavigationContainer>
+      <Main.Navigator 
+        initialRouteName="CategoriesScreen"
+        drawerContentOptions={{
+          activeTintColor: Colors.secondaryColor,
+          activeBackgroundColor: Colors.activeColor,
+          itemStyle: {
+            fontFamily: 'open-sans-bold',
+            borderWidth: 1,
+            borderColor: "black"
+          },
+          labelStyle: {
+            fontFamily: 'open-sans-bold',
+            fontSize: 18,
+            color: Colors.highlightColor
+          }
+        }}
+      >
+        <Main.Screen 
+          name="CategoriesScreen"
+          component={TabsNavigator}
+          options={{
+            drawerLabel: 'Meal Categories'
+          }}
+        />
+        <Main.Screen 
+          name="FilterScreen"
+          component={FiltersNavigator}
+          options={{
+            drawerLabel: 'Meal Filters'
+          }}
+        />
+      </Main.Navigator>
     </NavigationContainer>
   )
 }
 
-export default TabsNavigator;
+export default MainNavigator;

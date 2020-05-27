@@ -8,11 +8,25 @@ import {
 } from 'react-native';
 
 import CategoryGridTyle from '../components/CategoryGridTile';
+import MenuButton from '../components/MenuButton';
 
 // getting fake data
 import { CATEGORIES } from '../data/dummy-data';
 
 const CategoriesScreen = (props) => {
+  const { navigation } = props;
+
+  navigation.setOptions({
+    headerLeft: () => {
+      return (
+        <MenuButton 
+          title='toggle drawer'
+          iconName='ios-menu'
+          navigation={navigation}
+        />
+      )
+    }
+  })
 
   renderGridItem = (itemData) => {
     const { item } = itemData
