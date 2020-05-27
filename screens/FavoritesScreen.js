@@ -1,6 +1,8 @@
 import React from 'react';
 import MealList from '../components/MealList';
 
+import MenuButton from '../components/MenuButton';
+
 // get data
 import { CATEGORIES } from '../data/dummy-data';
 import { MEALS } from '../data/meals';
@@ -11,8 +13,20 @@ const favs = MEALS.filter( meal => {
   return meal.categoryIds.indexOf(catId) >= 0;
 })
 const FavoritesScreen = (props) => {
-  console.log("this is the category we want: ", catId);
-  console.log("these are the meals we will use: ", favs);
+  const { navigation } = props;
+
+  navigation.setOptions({
+    headerLeft: () => {
+      return (
+        <MenuButton 
+          title='toggle drawer'
+          iconName='ios-menu'
+          navigation={navigation}
+        />
+      )
+    }
+  })
+
   return <MealList 
     category={catId}
     listData={favs}

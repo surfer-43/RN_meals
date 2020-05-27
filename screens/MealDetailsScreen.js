@@ -7,9 +7,7 @@ import {
 } from 'react-native';
 import { 
   HeaderButtons, 
-  Item,
-  HiddenItem,
-  OverflowMenu,
+  Item
 } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../components/HeaderButton';
 
