@@ -58,30 +58,39 @@ const TabsNavigator = (props) => {
       <Tabs.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            console.log('color value: ', color);
             let iconName;
 
             if (route.name === 'Meals') {
               console.log("we are working with the meals tab");
               iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-circle-outline';
+                ? 'ios-restaurant'
+                : 'ios-restaurant';
             } else if (route.name === 'Favs') {
               console.log("we are dealing with the favourites tab styles")
-              iconName = focused ? 'ios-star-outline' : 'ios-star';
+              iconName = focused ? 'ios-star' : 'ios-star-outline';
             }
 
             // You can return any component that you like here!
-            return <Ionicons name={iconName} size={23} color={color} />;
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
         tabBarOptions={{
-          activeTintColor: 'tomato',
+          activeTintColor: Colors.highlightColor,
           inactiveTintColor: 'gray',
         }}
       >
         <Tabs.Screen name='Meals' component={MealsNavigator} />
-        <Tabs.Screen name="Favs" component={FavoritesScreen} />
+        <Tabs.Screen 
+          name="Favs" 
+          component={FavoritesScreen} 
+          /**
+           * use these options to over-ride the default settings in the tabbar
+           * screen options
+           */
+          options={{
+            tabBarLabel: 'FAVORITES!!'
+          }}
+        />
       </Tabs.Navigator>
     </NavigationContainer>
   )
