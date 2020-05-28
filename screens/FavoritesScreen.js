@@ -6,6 +6,7 @@ import MenuButton from '../components/MenuButton';
 // get data
 import { CATEGORIES } from '../data/dummy-data';
 import { MEALS } from '../data/meals';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 console.log("these are the meals: ", MEALS);
 const catId = 'c1';
 // setting up fake favs
@@ -24,7 +25,8 @@ const FavoritesScreen = (props) => {
           navigation={navigation}
         />
       )
-    }
+    },
+    
   })
 
   return <MealList 

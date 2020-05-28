@@ -1,5 +1,8 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { 
+  Text, 
+  Platform 
+} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -14,6 +17,7 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 import FiltersScreen from '../screens/FiltersScreen';
 
 import Colors from '../constants/colors';
+import HeaderStyles from '../constants/headerStyles';
 
 const Meals = createStackNavigator();
 const Favs = createStackNavigator();
@@ -31,17 +35,19 @@ const defaultStackNavOptions = {
   },
 };
 
-const MealsNavigator = (props) => {
+const MealsNavigator = () => {
   return (
     <Meals.Navigator 
       initialRouteName="CategoriesScreen"
       screenOptions={ defaultStackNavOptions }
+
     >
       <Meals.Screen 
         name="CategoriesScreen" 
         component={CategoriesScreen} 
         options={{
           title: 'Meal Categories',
+          ...HeaderStyles
         }}
       />
       <Meals.Screen 
@@ -49,6 +55,7 @@ const MealsNavigator = (props) => {
         component={CategoryMealsScreen} 
         options={{
           title: 'Meal Screen',
+          ...HeaderStyles
         }}
       />
       <Meals.Screen 
@@ -56,37 +63,38 @@ const MealsNavigator = (props) => {
         component={MealDetailsScreen} 
         options={{
           title: 'Details Screen',
+          ...HeaderStyles
         }}
       />
     </Meals.Navigator>
   )
 }
 
-const FavsNavigator = (props) => {
+const FavsNavigator = () => {
   return (
     <Favs.Navigator
       initialRouteName="CategoriesScreen"
       screenOptions={ defaultStackNavOptions }
     >
-      <Meals.Screen 
-        name="FavoritesScreen" 
+      <Favs.Screen 
+        name="Favorite Meals" 
         component={FavoritesScreen} 
-        options={{
-          title: 'Favorite Meals Screen',
+        options={{ 
+          ...HeaderStyles 
         }}
       />
-      <Meals.Screen 
+      <Favs.Screen 
         name="MealDetailsScreen" 
         component={MealDetailsScreen} 
-        options={{
-          title: 'Details Screen',
+        options={{ 
+          ...HeaderStyles 
         }}
       />
     </Favs.Navigator>
   )
 }
 
-const FiltersNavigator = (porps) => {
+const FiltersNavigator = () => {
   return (
     <Filters.Navigator 
       initialRouteName="FiltersScreen"
@@ -100,7 +108,7 @@ const FiltersNavigator = (porps) => {
   )
 }
 
-const TabsNavigator = (props) => {
+const TabsNavigator = () => {
   return (
       <Tabs.Navigator
         shifting={true}
@@ -124,6 +132,10 @@ const TabsNavigator = (props) => {
         tabBarOptions={{
           activeTintColor: Colors.highlightColor,
           inactiveTintColor: 'gray',
+          labelStyle: {
+            fontFamily: 'open-sans-bold',
+            fontSize: 14
+          }
         }}
         activeColor={Colors.highlightColor}
         inactiveColor= 'grey'
@@ -133,26 +145,23 @@ const TabsNavigator = (props) => {
           name='Meals' 
           component={MealsNavigator}
           options={{
-            tabBarColor: Colors.secondaryColor
+            tabBarColor: Colors.secondaryColor,
+            tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans'}}>Meals!!</Text> : 'meals',
           }}
         />
         <Tabs.Screen 
           name="Favs" 
           component={FavsNavigator} 
-          /**
-           * use these options to over-ride the default settings in the tabbar
-           * screen options
-           */
           options={{
-            tabBarLabel: 'FAVORITES!!',
-            tabBarColor: Colors.androidColor
+            tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans'}}>FAVORITES!!</Text> : 'favs',
+            tabBarColor: Colors.androidColor,
           }}
         />
       </Tabs.Navigator>
   )
 }
 
-const MainNavigator = (props) => {
+const MainNavigator = () => {
   return(
     <NavigationContainer>
       <Main.Navigator 

@@ -38,7 +38,7 @@ const MealListItem = (props) => {
             </ImageBackground>
           </View>
           <View style={{...styles.itemRow, ...styles.mealDescription}}>
-            <Text>{duration} (mins)</Text>
+            <Text style={styles.descriptionContent}>{duration} (mins)</Text>
             <Text>{complexity.toUpperCase()}</Text>
             <Text>{affordability.toUpperCase()}</Text>
           </View>
@@ -77,6 +77,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  descriptionContent: {
+    fontFamily: 'open-sans'
   },
   mealImage: {
     width: '100%',

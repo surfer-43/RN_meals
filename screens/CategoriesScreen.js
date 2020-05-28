@@ -19,7 +19,8 @@ const CategoriesScreen = (props) => {
   navigation.setOptions({
     headerLeft: () => {
       return (
-        <MenuButton 
+        <MenuButton
+          style={{color: 'white'}} 
           title='toggle drawer'
           iconName='ios-menu'
           navigation={navigation}
@@ -58,7 +59,6 @@ const CategoriesScreen = (props) => {
   )
 }
 
-console.log("all info about CategoriesScreen: ", CategoriesScreen);
 // adding roperties to the CategoriesScreen
 CategoriesScreen.navigationOptions = {
   headerTitle: "bang"

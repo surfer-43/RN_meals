@@ -12,6 +12,7 @@ const MenuButton = (props) => {
           HeaderButtonComponent={CustomHeaderButton}
         >
           <Item
+            buttonStyle={{color:'white'}}
             title={title}
             iconName={iconName}
             onPress={() => {navigation.toggleDrawer()}}
