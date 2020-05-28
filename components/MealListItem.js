@@ -9,6 +9,9 @@ import {
   StyleSheet
 } from 'react-native';
 
+import DefaultText from '../components/DefaultText';
+import MealsOverview from '../components/MealsOverview';
+
 import Colors from '../constants/colors';
 
 const MealListItem = (props) => {
@@ -37,11 +40,11 @@ const MealListItem = (props) => {
               </View>
             </ImageBackground>
           </View>
-          <View style={{...styles.itemRow, ...styles.mealDescription}}>
-            <Text style={styles.descriptionContent}>{duration} (mins)</Text>
-            <Text>{complexity.toUpperCase()}</Text>
-            <Text>{affordability.toUpperCase()}</Text>
-          </View>
+          <MealsOverview 
+            duration={duration}
+            complexity={complexity}
+            affordability={affordability}
+            />
         </View>
       </Touchable>
     </View>
@@ -77,9 +80,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  descriptionContent: {
-    fontFamily: 'open-sans'
   },
   mealImage: {
     width: '100%',
