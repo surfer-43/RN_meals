@@ -30,11 +30,12 @@ const FilterSwitch = ( props ) => {
 }
 
 const FiltersScreen = (props) => {
-  const { navigation } = props;
-  const [ isGlutenFree, setIsGlutenFree ] = useState(false)
-  const [ isVegan, setIsVegan ] = useState(false)
-  const [ isVegitarian, setIsVegitarian ] = useState(false)
-  const [ isLactoseFree, setIsLactoseFree] = useState(false)
+  const { navigation, route } = props;
+  const [ isGlutenFree, setIsGlutenFree ] = useState(false);
+  const [ isVegan, setIsVegan ] = useState(false);
+  const [ isVegitarian, setIsVegitarian ] = useState(false);
+  const [ isLactoseFree, setIsLactoseFree] = useState(false);
+  const [ totalFilters, setTotalFilters ] = useState() 
 
   navigation.setOptions({
     headerLeft: () => {
@@ -54,7 +55,7 @@ const FiltersScreen = (props) => {
         <MenuButton 
           title='save'
           iconName='ios-save'
-          pressed={ () => { console.log('looking for the navigation obj: ', navigation)} }
+          pressed={ () => { console.log('looking for the totalfilters on press obj: ', totalFilters)} }
         />
       )
     }
@@ -72,8 +73,17 @@ const FiltersScreen = (props) => {
 
   useEffect(() => {
     console.log("setting the save option");
-    navigation.setParams({save: saveFilters})
-  }, [saveFilters, navigation])
+    // navigation.setParams({save: saveFilters})
+    const appliedFilters = {
+      glutenFree: isGlutenFree,
+      vegan: isVegan,
+      vegitarian: isVegitarian,
+      lactoseFree: isLactoseFree,
+    }
+    console.log("these are the applied filters: ", appliedFilters);
+    setTotalFilters(appliedFilters);
+  }, [ isGlutenFree, isVegan, isVegitarian, isLactoseFree ])
+  //[saveFilters, navigation])
 
   return (
     <View>
