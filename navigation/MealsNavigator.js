@@ -25,7 +25,7 @@ const Filters = createStackNavigator();
 const Main = createDrawerNavigator();
 const Tabs = Platform.OS === "android"? createMaterialBottomTabNavigator() : createBottomTabNavigator();
 
-const defaultStackNavOptions = {
+const defaultNavOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : "white",
   },
@@ -39,7 +39,7 @@ const MealsNavigator = () => {
   return (
     <Meals.Navigator 
       initialRouteName="CategoriesScreen"
-      screenOptions={ defaultStackNavOptions }
+      screenOptions={ defaultNavOptions }
 
     >
       <Meals.Screen 
@@ -74,7 +74,7 @@ const FavsNavigator = () => {
   return (
     <Favs.Navigator
       initialRouteName="CategoriesScreen"
-      screenOptions={ defaultStackNavOptions }
+      screenOptions={ defaultNavOptions }
     >
       <Favs.Screen 
         name="Favorite Meals" 
@@ -98,11 +98,14 @@ const FiltersNavigator = () => {
   return (
     <Filters.Navigator 
       initialRouteName="FiltersScreen"
-      screenOptions={ defaultStackNavOptions }
+      screenOptions={ defaultNavOptions }
     >
-      <Main.Screen 
+      <Filters.Screen 
         name="Filter Meals"
         component={FiltersScreen}
+        options={{
+          ...HeaderStyles
+        }}
       />
     </Filters.Navigator>
   )
