@@ -23,7 +23,10 @@ const CategoriesScreen = (props) => {
           style={{color: 'white'}} 
           title='toggle drawer'
           iconName='ios-menu'
-          navigation={navigation}
+          pressed={() => {
+            console.log("toggle was pressed");
+            navigation.toggleDrawer()
+          }}
         />
       )
     }

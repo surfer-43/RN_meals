@@ -6,7 +6,7 @@ import {
 import CustomHeaderButton from '../components/HeaderButton';
 
 const MenuButton = (props) => {
-    const { title, iconName, navigation } = props;
+    const { title, iconName, pressed } = props;
     return (
         <HeaderButtons
           HeaderButtonComponent={CustomHeaderButton}
@@ -15,7 +15,7 @@ const MenuButton = (props) => {
             buttonStyle={{color:'white'}}
             title={title}
             iconName={iconName}
-            onPress={() => {navigation.toggleDrawer()}}
+            onPress={pressed}
           />
         </HeaderButtons>
     )
