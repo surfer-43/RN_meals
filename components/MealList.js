@@ -9,6 +9,7 @@ import MealListItem from './MealListItem';
 const MealList = (props) => {
   const { category, listData, navigation } = props;
   const renderListItem = ( itemData ) => {
+    console.log("this is the itemData: ", itemData);
     /**
      * this seems ike a future hook to get titles for each 
      * screen in the app
@@ -23,7 +24,7 @@ const MealList = (props) => {
               'MealDetailsScreen',
               {
                 mealId: itemData.item.id,
-                otherParam: 'anything you want here',
+                mealTitle: itemData.item.title,
               }
             )}
           }

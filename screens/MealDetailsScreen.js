@@ -4,35 +4,35 @@ import {
   Image,
   ScrollView,
   View,
-  Button,
   StyleSheet,
 } from 'react-native';
 import { 
   HeaderButtons, 
   Item
-} from 'react-navigation-header-buttons'
+} from 'react-navigation-header-buttons';
+import { useSelector } from 'react-redux';
 import CustomHeaderButton from '../components/HeaderButton';
 import MealsOverview from '../components/MealsOverview';
 import DefaultText from '../components/DefaultText'
 
-import { MEALS } from '../data/meals';
-
 const MealDetailsScreen = (props) => {
-  const { mealId } = props.route.params;
-  const mealDetails = MEALS.filter( meal => meal.id === mealId );
+  const { mealId, mealTitle } = props.route.params;
+  const availableMeals = useSelector(state => state.meals.meals)
+  const mealDetails = availableMeals.filter( meal => meal.id === mealId );
   const { 
     duration,
     complexity,
     affordability,
     imageUrl,
     ingredients,
-    steps
+    steps,
+    title
   } = mealDetails[0]
 
-  console.log('this is the meal: ', mealDetails[0]);
+  console.log('this is the mealTitle: ', mealTitle);
   // setting title of screen
   props.navigation.setOptions({ 
-    title: mealDetails[0].title,
+    title: mealTitle,
     headerRight: () => { 
       return (
         <HeaderButtons
