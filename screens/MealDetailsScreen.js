@@ -4,35 +4,40 @@ import {
   Image,
   ScrollView,
   View,
-  Button,
   StyleSheet,
 } from 'react-native';
 import { 
   HeaderButtons, 
   Item
-} from 'react-navigation-header-buttons'
+} from 'react-navigation-header-buttons';
+import { useSelector, useDispatch } from 'react-redux';
 import CustomHeaderButton from '../components/HeaderButton';
 import MealsOverview from '../components/MealsOverview';
-import DefaultText from '../components/DefaultText'
+import DefaultText from '../components/DefaultText';
 
-import { MEALS } from '../data/meals';
+import { toggleFavorites } from '../store/actions/meals';
 
 const MealDetailsScreen = (props) => {
-  const { mealId } = props.route.params;
-  const mealDetails = MEALS.filter( meal => meal.id === mealId );
+  const { mealId, mealTitle } = props.route.params;
+  const availableMeals = useSelector(state => state.meals.meals)
+  const mealDetails = availableMeals.filter( meal => meal.id === mealId );
   const { 
     duration,
     complexity,
     affordability,
     imageUrl,
     ingredients,
-    steps
+    steps,
+    title
   } = mealDetails[0]
+  const dispatch = useDispatch();
+  const toggleFavs = () => {
+    dispatch( toggleFavorites(mealId) )
+  }
 
-  console.log('this is the meal: ', mealDetails[0]);
   // setting title of screen
   props.navigation.setOptions({ 
-    title: mealDetails[0].title,
+    title: mealTitle,
     headerRight: () => { 
       return (
         <HeaderButtons
@@ -41,9 +46,9 @@ const MealDetailsScreen = (props) => {
         <Item 
           title='favourite' 
           iconName='ios-star'
-          onPress={() => {
-              console.log('mark as favourite...');
-          }}/>
+          onPress={
+            toggleFavs
+          }/>
           {/**
             can add more than 1 icon if required
            */}
@@ -75,7 +80,6 @@ const MealDetailsScreen = (props) => {
           <Text style={styles.title}>Ingredients</Text>
           <View style={styles.listContainer}>
             {ingredients.map(( ingredient, index ) => {
-                console.log('what is the ingredient: ', ingredient);
                 return renderListElm(ingredient, index)
               }
             )}

@@ -8,28 +8,22 @@ import MealListItem from './MealListItem';
 
 const MealList = (props) => {
   const { category, listData, navigation } = props;
-  const renderListItem = ( itemData ) => {
-    /**
-     * this seems ike a future hook to get titles for each 
-     * screen in the app
-     */
-    props.navigation.setOptions({ title: category.title });
-  
-      return (
-        <MealListItem 
-          data={itemData.item} 
-          selectMeal={()=> {
-            navigation.navigate(
-              'MealDetailsScreen',
-              {
-                mealId: itemData.item.id,
-                otherParam: 'anything you want here',
-              }
-            )}
-          }
-        />
-      )
-    }
+  const renderListItem = ( itemData ) => {  
+    return (
+      <MealListItem 
+        data={itemData.item} 
+        selectMeal={()=> {
+          navigation.navigate(
+            'MealDetailsScreen',
+            {
+              mealId: itemData.item.id,
+              mealTitle: itemData.item.title,
+            }
+          )}
+        }
+      />
+    )
+  }
 
   return (
     <View style={styles.screen}>
