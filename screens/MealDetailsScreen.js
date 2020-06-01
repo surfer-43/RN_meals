@@ -10,10 +10,12 @@ import {
   HeaderButtons, 
   Item
 } from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CustomHeaderButton from '../components/HeaderButton';
 import MealsOverview from '../components/MealsOverview';
-import DefaultText from '../components/DefaultText'
+import DefaultText from '../components/DefaultText';
+
+import { toggleFavorites } from '../store/actions/meals';
 
 const MealDetailsScreen = (props) => {
   const { mealId, mealTitle } = props.route.params;
@@ -28,8 +30,11 @@ const MealDetailsScreen = (props) => {
     steps,
     title
   } = mealDetails[0]
+  const dispatch = useDispatch();
+  const toggleFavs = () => {
+    dispatch( toggleFavorites(mealId) )
+  }
 
-  console.log('this is the mealTitle: ', mealTitle);
   // setting title of screen
   props.navigation.setOptions({ 
     title: mealTitle,
@@ -41,9 +46,9 @@ const MealDetailsScreen = (props) => {
         <Item 
           title='favourite' 
           iconName='ios-star'
-          onPress={() => {
-              console.log('mark as favourite...');
-          }}/>
+          onPress={
+            toggleFavs
+          }/>
           {/**
             can add more than 1 icon if required
            */}
@@ -75,7 +80,6 @@ const MealDetailsScreen = (props) => {
           <Text style={styles.title}>Ingredients</Text>
           <View style={styles.listContainer}>
             {ingredients.map(( ingredient, index ) => {
-                console.log('what is the ingredient: ', ingredient);
                 return renderListElm(ingredient, index)
               }
             )}

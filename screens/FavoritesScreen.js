@@ -27,7 +27,6 @@ const FavoritesScreen = (props) => {
   })
 
   return <MealList 
-    category={catId}
     listData={favs}
     navigation={props.navigation}
     />
