@@ -5,10 +5,13 @@ import {
   StyleSheet,
 } from 'react-native';
 import MealListItem from './MealListItem';
+import { useSelector } from 'react-redux';
 
 const MealList = (props) => {
   const { category, listData, navigation } = props;
+  const favoriteMeals = useSelector(state => state.meals.favoriteMeals)
   const renderListItem = ( itemData ) => {  
+    const isFav = favoriteMeals.find( meal => meal.id === itemData.item.id);
     return (
       <MealListItem 
         data={itemData.item} 
@@ -18,6 +21,7 @@ const MealList = (props) => {
             {
               mealId: itemData.item.id,
               mealTitle: itemData.item.title,
+              isFav: isFav
             }
           )}
         }

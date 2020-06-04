@@ -18,8 +18,11 @@ import DefaultText from '../components/DefaultText';
 import { toggleFavorites } from '../store/actions/meals';
 
 const MealDetailsScreen = (props) => {
-  const { mealId, mealTitle } = props.route.params;
-  const availableMeals = useSelector(state => state.meals.meals)
+  const { mealId, mealTitle, isFav } = props.route.params;
+  const availableMeals = useSelector(state => state.meals.meals);
+  const isCurrentFavoriteMeal = useSelector( state => state.meals.favoriteMeals.some(meal => meal.id === mealId));
+  console.log("these are our favorite meals: ", isCurrentFavoriteMeal);
+  console.log("this is the value in isFav: ", isFav);
   const mealDetails = availableMeals.filter( meal => meal.id === mealId );
   const { 
     duration,
@@ -45,7 +48,7 @@ const MealDetailsScreen = (props) => {
         >
         <Item 
           title='favourite' 
-          iconName='ios-star'
+          iconName={isCurrentFavoriteMeal? 'ios-star' : 'ios-star-outline'}
           onPress={
             toggleFavs
           }/>
